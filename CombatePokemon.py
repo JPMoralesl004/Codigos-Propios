@@ -14,7 +14,6 @@ while vida_pikachu > 0 and vida_squirtle > 0:
     print("Turno de Pikachu")
     ataque_pikachu = randint(1, 2)
     if ataque_pikachu == 1:
-        # Bola Voltio
         print("Pikachu ataca con Bola Voltio")
         vida_squirtle -= 10
     else:
