@@ -18,6 +18,3 @@ if quiere_cambiar_dolares_a_euros.upper() == "S":
     dolares = float(input("Introduce la cantidad de dólares que quieras cambiar: "))
     euros = dolares * cambio_dolares_a_euros
     print("{} dólares son {} euros".format(dolares, euros))
-
-
-
