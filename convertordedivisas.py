@@ -7,7 +7,6 @@ cambio_yuan_a_euros = 0.13
 cambio_yen_a_euros = 0.0059
 cambio_rublo_a_euros = 0.010
 
-# Conversión de libras a euros
 quiere_cambiar_libras_a_euros = input("¿Quieres cambiar libras a euros? (S/N) ")
 if quiere_cambiar_libras_a_euros.upper() == "S":
     libras = float(input("Introduce la cantidad de libras que quieras cambiar: "))
