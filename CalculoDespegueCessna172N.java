@@ -1,3 +1,5 @@
+# version en java del codigo python con el mismo nombre
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
