@@ -175,7 +175,7 @@ public class CalculoDespegueCessna172N {
                 System.out.print("¿Cuántos nudos de viento en cola tienes? ");
                 vientoCola = scanner.nextDouble();
             }
-            scanner.nextLine(); // Limpiar buffer
+            scanner.nextLine();
             System.out.print("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
             String tipoPista = scanner.nextLine();
 
