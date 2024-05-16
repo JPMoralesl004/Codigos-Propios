@@ -74,7 +74,7 @@ def calcular_performance_distancia(temperatura, viento_contra, viento_cola, tipo
                 distancia_necesaria_pies *= 1.15
 
             print("Datos de Altitud:", datos_altitud)
-            print("Distancia necesaria para despegue (pies):", distancia_necesaria_pies)
+            print("Distancia necesaria para el despegue (pies):", distancia_necesaria_pies)
         else:
             print("No se pudieron calcular los datos de altitud para la altitud y temperatura seleccionadas.")
     else:
@@ -92,7 +92,7 @@ def calcular_performance_distancia(temperatura, viento_contra, viento_cola, tipo
                 distancia_necesaria_pies *= 1.15
 
             print("Datos de Altitud:", datos_altitud)
-            print("Distancia necesaria para despegue (pies):", distancia_necesaria_pies)
+            print("Distancia necesaria para el despegue (pies):", distancia_necesaria_pies)
         else:
             print("No se pudieron calcular los datos de altitud para la altitud y temperatura seleccionadas.")
 
