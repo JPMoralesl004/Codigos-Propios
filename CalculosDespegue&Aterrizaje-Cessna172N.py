@@ -43,7 +43,6 @@ def obtener_datos_altitud(altitud, temperatura):
     print("No se encontraron datos de altitud para la altitud y temperatura seleccionadas.")
     return None
 
-
 def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
     elevaciones_preestablecidas = {
         "mgpb": 32.80,
@@ -83,7 +82,6 @@ def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_
     else:
         print("No se pudieron calcular los datos de altitud para la altitud y temperatura seleccionadas.")
 
-
 def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
     elevaciones_preestablecidas = {
         "mgpb": 32.80,
@@ -122,7 +120,6 @@ def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tip
         print("Distancia necesaria para el aterrizaje (pies):", total_to_clear)
     else:
         print("No se pudieron calcular los datos de altitud para la altitud y temperatura seleccionadas.")
-
 
 def mostrar_lista_aeropuertos():
     print("\nLista de aeropuertos/aeródromos de salida:")
@@ -169,7 +166,6 @@ def mostrar_lista_aeropuertos():
     print("| USPANTÁN          | MGUS      |")
     print("| XALBAL            | MGXB      |")
     print("| ZACAPA            | MGZA      |\n")
-
 
 def main():
     while True:
@@ -220,7 +216,6 @@ def main():
         if continuar.lower() != "s":
             print("¡Gracias por usar el sistema de cálculo de despegues y aterrizajes!")
             break
-
 
 if __name__ == "__main__":
     main()
