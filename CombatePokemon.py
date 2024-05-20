@@ -39,7 +39,6 @@ while vida_pikachu > 0 and vida_squirtle > 0:
     input("Enter para continuar...\n")
     os.system("cls")
 
-    # Turno Squirtle
     print("Turno Squirtle")
 
     ataque_squirtle = None
