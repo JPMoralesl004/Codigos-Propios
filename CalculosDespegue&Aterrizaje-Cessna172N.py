@@ -168,7 +168,6 @@ def mostrar_lista_aeropuertos():
     print("| XALBAL            | MGXB      |")
     print("| ZACAPA            | MGZA      |\n")
 
-
 def main():
     while True:
         print("Bienvenido al sistema de cálculo de despegues y aterrizajes de un Cessna 172N para vuelos"
