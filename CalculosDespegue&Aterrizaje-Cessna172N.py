@@ -21,6 +21,7 @@ def obtener_datos_altitud(altitud, temperatura):
             "TOTAL_TO_CLEAR_50_FT_OBS": [1330, 1365, 1405, 1440, 1480, 1525, 1570, 1615, 1665]
         }
     }
+    
     if temperatura < 0 or temperatura > 40:
         print("Temperatura fuera de rango (0°C - 40°C).")
         return None
@@ -40,7 +41,7 @@ def obtener_datos_altitud(altitud, temperatura):
         if tabla_seleccionada["PRESS_ALT_FT"][i] == altitud:
             return {"PRESS ALT FT": altitud,
                     "TOTAL TO CLEAR 50 FT OBS": tabla_seleccionada["TOTAL_TO_CLEAR_50_FT_OBS"][i]}
-    print("No se encontraron datos de altitud para la altitud y temperatura seleccionadas.")
+    print("No se encontraron datos para la altitud y temperatura seleccionadas.")
     return None
 
 def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
@@ -80,7 +81,7 @@ def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_
         print("Datos de Altitud:", datos_altitud)
         print("Distancia necesaria para el despegue (pies):", total_to_clear)
     else:
-        print("No se pudieron calcular los datos de altitud para la altitud y temperatura seleccionadas.")
+        print("No se pudieron calcular los datos para la altitud y temperatura seleccionadas.")
 
 def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
     elevaciones_preestablecidas = {
@@ -119,7 +120,7 @@ def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tip
         print("Datos de Altitud:", datos_altitud)
         print("Distancia necesaria para el aterrizaje (pies):", total_to_clear)
     else:
-        print("No se pudieron calcular los datos de altitud para la altitud y temperatura seleccionadas.")
+        print("No se pudieron calcular los datos para la altitud y temperatura seleccionadas.")
 
 def mostrar_lista_aeropuertos():
     print("\nLista de aeropuertos/aeródromos de salida:")
@@ -166,6 +167,7 @@ def mostrar_lista_aeropuertos():
     print("| USPANTÁN          | MGUS      |")
     print("| XALBAL            | MGXB      |")
     print("| ZACAPA            | MGZA      |\n")
+
 
 def main():
     while True:
