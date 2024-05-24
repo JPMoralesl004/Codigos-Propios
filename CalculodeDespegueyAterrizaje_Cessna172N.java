@@ -27,7 +27,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
                 double vientoContra = scanner.nextDouble();
                 System.out.println("¿Cuántos nudos de viento en cola tienes? ");
                 double vientoCola = scanner.nextDouble();
-                scanner.nextLine();  // Consume the newline character
+                scanner.nextLine();
                 System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
                 String tipoPista = scanner.nextLine().toLowerCase();
                 calcularPerformanceDespegue(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoSalida);
