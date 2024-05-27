@@ -12,13 +12,10 @@ public class UNO {
 
     public static void main(String[] args) {
         Menu.mostrarMenu();
-
         int numeroJugadores = Menu.seleccionarNumeroJugadores();
-        
         inicializarJuego(numeroJugadores);
 
         while (true) {
-            
             Jugador jugador = jugadores[jugadorActual];
             System.out.println("Turno del Jugador " + (jugadorActual + 1));
             System.out.println("Tus cartas:");
@@ -31,11 +28,10 @@ public class UNO {
             System.out.println("Elige una carta para jugar o 0 para robar una carta:");
 
             int eleccion = scanner.nextInt();
-
             if (eleccion == 0) {
                 jugador.robarCarta(mazo);
 
-            } else {
+            } else if (eleccion > 0 && eleccion <= jugador.getMano().size()) {
                 Carta cartaElegida = jugador.getMano().get(eleccion - 1);
                 Carta cartaSuperior = pilaDescarte.get(pilaDescarte.size() - 1);
 
@@ -47,15 +43,15 @@ public class UNO {
                         System.out.println("¡El Jugador " + (jugadorActual + 1) + " ha ganado!");
                         break;
                     }
-
+                    
                 } else {
                     System.out.println("No puedes jugar esa carta.");
                 }
+            } else {
+                System.out.println("Elección no válida. Inténtalo de nuevo.");
             }
-
             siguienteJugador();
         }
-
         scanner.close();
     }
 
@@ -63,6 +59,7 @@ public class UNO {
         mazo = new Mazo();
         pilaDescarte = new ArrayList<>();
         jugadores = new Jugador[numeroJugadores];
+
         for (int i = 0; i < jugadores.length; i++) {
             jugadores[i] = new Jugador(i + 1);
 
@@ -81,6 +78,7 @@ public class UNO {
         return cartaElegida.getColor() == cartaSuperior.getColor() ||
             cartaElegida.getTipo() == cartaSuperior.getTipo() ||
             cartaElegida.getColor() == Carta.Color.NINGUNO;
+
     }
 
     private static void ejecutarEfectoCarta(Carta carta) {
@@ -112,25 +110,25 @@ public class UNO {
                 jugadores[jugadorActual].robarCarta(mazo);
                 jugadores[jugadorActual].robarCarta(mazo);
                 jugadores[jugadorActual].robarCarta(mazo);
+                break;
 
+            default:
                 break;
         }
     }
 
     private static void elegirColor(Carta carta) {
-
         System.out.println("Elige un color: 1. ROJO 2. AMARILLO 3. VERDE 4. AZUL");
         int eleccionColor = scanner.nextInt();
         carta.setColor(Carta.Color.values()[eleccionColor - 1]);
     }
 
     private static void siguienteJugador() {
+        
         if (direccionJuego) {
             jugadorActual = (jugadorActual + 1) % jugadores.length;
 
-        }
-
-        else {
+        } else {
             jugadorActual = (jugadorActual - 1 + jugadores.length) % jugadores.length;
         }
     }
