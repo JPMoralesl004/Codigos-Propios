@@ -31,7 +31,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
                 scanner.nextLine();
                 System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
                 String tipoPista = scanner.nextLine().toLowerCase();
-                calcularPerformanceDespegue(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoSalida);
+                calcularDespegue(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoSalida);
             }
 
             if (eleccion.equals("2") || eleccion.equals("3")) {
@@ -48,7 +48,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
                 scanner.nextLine();
                 System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
                 String tipoPista = scanner.nextLine().toLowerCase();
-                calcularPerformanceAterrizaje(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoLlegada);
+                calcularAterrizaje(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoLlegada);
             }
 
             System.out.println("¿Deseas realizar otro cálculo? (s/n): ");
