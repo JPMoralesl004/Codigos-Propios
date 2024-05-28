@@ -161,6 +161,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
         altitudesAeropuertos.put("mgqz", 7710);
         altitudesAeropuertos.put("mgrt", 656);
         altitudesAeropuertos.put("mgza", 633);
+        altitudesAeropuertos.put("mggt", 5000);
 
         if (!altitudesAeropuertos.containsKey(aeropuerto)) {
             System.out.println("Aeropuerto no encontrado.");
