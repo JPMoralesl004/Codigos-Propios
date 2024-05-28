@@ -6,6 +6,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        
         while (true) {
             System.out.println("Bienvenido al sistema de cálculo de despegues y aterrizajes de un Cessna 172N para vuelos internos en Guatemala");
             System.out.println("¿Qué cálculo deseas realizar? \n1. Despegue \n2. Aterrizaje \n3. Ambos Cálculos \nElige una opción (1, 2, 3): ");
@@ -120,6 +121,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
         if (temperatura < 0 || temperatura > 40) {
             System.out.println("Temperatura fuera de rango (0°C - 40°C).");
             return null;
+            
         } else if (temperatura < 10) {
             keyTemperatura = "0C";
         } else if (temperatura < 20) {
