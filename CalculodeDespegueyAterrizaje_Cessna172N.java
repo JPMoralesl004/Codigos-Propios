@@ -4,9 +4,25 @@ import java.util.Scanner;
 
 public class CalculodeDespegueyAterrizaje_Cessna172N {
 
+    private static final Map<String, Integer> altitudesAeropuertos = new HashMap<>();
+
+    static {
+        altitudesAeropuertos.put("mgpb", 33);
+        altitudesAeropuertos.put("mgsj", 29);
+        altitudesAeropuertos.put("mgba", 1699);
+        altitudesAeropuertos.put("mgcb", 4330);
+        altitudesAeropuertos.put("mgcr", 627);
+        altitudesAeropuertos.put("mgmm", 427);
+        altitudesAeropuertos.put("mgpi", 427);
+        altitudesAeropuertos.put("mgqz", 7710);
+        altitudesAeropuertos.put("mgrt", 656);
+        altitudesAeropuertos.put("mgza", 633);
+        altitudesAeropuertos.put("mggt", 5000);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
+
         while (true) {
             System.out.println("Bienvenido al sistema de cálculo de despegues y aterrizajes de un Cessna 172N para vuelos internos en Guatemala");
             System.out.println("¿Qué cálculo deseas realizar? \n1. Despegue \n2. Aterrizaje \n3. Ambos Cálculos \nElige una opción (1, 2, 3): ");
@@ -18,37 +34,11 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
             }
 
             if (eleccion.equals("1") || eleccion.equals("3")) {
-                System.out.println("\nCálculo de Despegue:");
-                mostrarListaAeropuertos();
-                System.out.println("Por favor, ingresa el indicador del aeropuerto/aeródromo de salida: ");
-                String aeropuertoSalida = scanner.nextLine().toLowerCase();
-                System.out.println("Por favor, ingresa la temperatura del aeropuerto de salida (en grados Celsius): ");
-                double temperatura = scanner.nextDouble();
-                System.out.println("¿Tienes viento en contra? (nudos): ");
-                double vientoContra = scanner.nextDouble();
-                System.out.println("¿Cuántos nudos de viento en cola tienes? ");
-                double vientoCola = scanner.nextDouble();
-                scanner.nextLine();
-                System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
-                String tipoPista = scanner.nextLine().toLowerCase();
-                calcularDespegue(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoSalida);
+                realizarCalculo(scanner, "Despegue");
             }
 
             if (eleccion.equals("2") || eleccion.equals("3")) {
-                System.out.println("\nCálculo de Aterrizaje:");
-                mostrarListaAeropuertos();
-                System.out.println("Por favor, ingresa el indicador del aeropuerto/aeródromo de llegada: ");
-                String aeropuertoLlegada = scanner.nextLine().toLowerCase();
-                System.out.println("Por favor, ingresa la temperatura del aeropuerto de llegada (en grados Celsius): ");
-                double temperatura = scanner.nextDouble();
-                System.out.println("¿Tienes viento en contra? (nudos): ");
-                double vientoContra = scanner.nextDouble();
-                System.out.println("¿Cuántos nudos de viento en cola tienes? ");
-                double vientoCola = scanner.nextDouble();
-                scanner.nextLine();
-                System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
-                String tipoPista = scanner.nextLine().toLowerCase();
-                calcularAterrizaje(temperatura, vientoContra, vientoCola, tipoPista, aeropuertoLlegada);
+                realizarCalculo(scanner, "Aterrizaje");
             }
 
             System.out.println("¿Deseas realizar otro cálculo? (s/n): ");
@@ -59,6 +49,34 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
             }
         }
         scanner.close();
+    }
+
+    private static void realizarCalculo(Scanner scanner, String tipoCalculo) {
+        System.out.println("\nCálculo de " + tipoCalculo + ":");
+        mostrarListaAeropuertos();
+        System.out.println("Por favor, ingresa el indicador del aeropuerto/aeródromo de " + (tipoCalculo.equals("Despegue") ? "salida" : "llegada") + ": ");
+        String aeropuerto = scanner.nextLine().toLowerCase();
+
+        if (!altitudesAeropuertos.containsKey(aeropuerto)) {
+            System.out.println("Aeropuerto no encontrado.");
+            return;
+        }
+
+        System.out.println("Por favor, ingresa la temperatura del aeropuerto (en grados Celsius): ");
+        double temperatura = scanner.nextDouble();
+        System.out.println("¿Tienes viento en contra? (nudos): ");
+        double vientoContra = scanner.nextDouble();
+        System.out.println("¿Cuántos nudos de viento en cola tienes? ");
+        double vientoCola = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
+        String tipoPista = scanner.nextLine().toLowerCase();
+
+        if (tipoCalculo.equals("Despegue")) {
+            calcularPerformanceDespegue(temperatura, vientoContra, vientoCola, tipoPista, aeropuerto);
+        } else {
+            calcularPerformanceAterrizaje(temperatura, vientoContra, vientoCola, tipoPista, aeropuerto);
+        }
     }
 
     private static void mostrarListaAeropuertos() {
@@ -108,7 +126,7 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
         System.out.println("| ZACAPA            | MGZA      |\n");
     }
 
-    private static Map<String, Double> obtenerDatosAltitud(double altitud, double temperatura) {
+    private static Map<String, Double> obtenerDatosAltitud(int altitud, double temperatura) {
         Map<String, double[]> tablaCombinada = new HashMap<>();
         tablaCombinada.put("0C", new double[]{1205, 1235, 1265, 1300, 1335, 1370, 1415, 1455, 1500});
         tablaCombinada.put("10C", new double[]{1235, 1265, 1300, 1335, 1370, 1415, 1455, 1495, 1540});
@@ -116,31 +134,28 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
         tablaCombinada.put("30C", new double[]{1295, 1330, 1370, 1405, 1445, 1485, 1535, 1575, 1620});
         tablaCombinada.put("40C", new double[]{1330, 1365, 1405, 1440, 1480, 1525, 1570, 1615, 1665});
 
-        String[] altitudes = new String[]{"0C", "10C", "20C", "30C", "40C"};
         String keyTemperatura;
         if (temperatura < 0 || temperatura > 40) {
             System.out.println("Temperatura fuera de rango (0°C - 40°C).");
             return null;
-            
         } else if (temperatura < 10) {
             keyTemperatura = "0C";
         } else if (temperatura < 20) {
             keyTemperatura = "10C";
         } else if (temperatura < 30) {
             keyTemperatura = "20C";
-        } else if (temperatura < 40) {
-            keyTemperatura = "30C";
         } else {
-            keyTemperatura = "40C";
+            keyTemperatura = "30C";
         }
 
         double[] tablaSeleccionada = tablaCombinada.get(keyTemperatura);
         int[] presAltFt = new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000};
+        
         for (int i = 0; i < presAltFt.length; i++) {
             if (presAltFt[i] == altitud) {
                 Map<String, Double> resultado = new HashMap<>();
                 resultado.put("distancia", tablaSeleccionada[i]);
-                resultado.put("vref", 65.0 + 5.0 * (altitud / 10000.0));  
+                resultado.put("vref", 65.0 + 5.0 * (altitud / 10000.0));
                 return resultado;
             }
         }
@@ -150,24 +165,6 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
     }
 
     private static void calcularPerformanceDespegue(double temperatura, double vientoContra, double vientoCola, String tipoPista, String aeropuerto) {
-        Map<String, Integer> altitudesAeropuertos = new HashMap<>();
-        altitudesAeropuertos.put("mgpb", 33);
-        altitudesAeropuertos.put("mgsj", 29);
-        altitudesAeropuertos.put("mgba", 1699);
-        altitudesAeropuertos.put("mgcb", 4330);
-        altitudesAeropuertos.put("mgcr", 627);
-        altitudesAeropuertos.put("mgmm", 427);
-        altitudesAeropuertos.put("mgpi", 427);
-        altitudesAeropuertos.put("mgqz", 7710);
-        altitudesAeropuertos.put("mgrt", 656);
-        altitudesAeropuertos.put("mgza", 633);
-        altitudesAeropuertos.put("mggt", 5000);
-
-        if (!altitudesAeropuertos.containsKey(aeropuerto)) {
-            System.out.println("Aeropuerto no encontrado.");
-            return;
-        }
-
         int altitud = altitudesAeropuertos.get(aeropuerto);
         Map<String, Double> datos = obtenerDatosAltitud(altitud, temperatura);
         if (datos == null) {
@@ -188,23 +185,6 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
     }
 
     private static void calcularPerformanceAterrizaje(double temperatura, double vientoContra, double vientoCola, String tipoPista, String aeropuerto) {
-        Map<String, Integer> altitudesAeropuertos = new HashMap<>();
-        altitudesAeropuertos.put("mgpb", 33);
-        altitudesAeropuertos.put("mgsj", 29);
-        altitudesAeropuertos.put("mgba", 1699);
-        altitudesAeropuertos.put("mgcb", 4330);
-        altitudesAeropuertos.put("mgcr", 627);
-        altitudesAeropuertos.put("mgmm", 427);
-        altitudesAeropuertos.put("mgpi", 427);
-        altitudesAeropuertos.put("mgqz", 7710);
-        altitudesAeropuertos.put("mgrt", 656);
-        altitudesAeropuertos.put("mgza", 633);
-
-        if (!altitudesAeropuertos.containsKey(aeropuerto)) {
-            System.out.println("Aeropuerto no encontrado.");
-            return;
-        }
-
         int altitud = altitudesAeropuertos.get(aeropuerto);
         Map<String, Double> datos = obtenerDatosAltitud(altitud, temperatura);
         if (datos == null) {
