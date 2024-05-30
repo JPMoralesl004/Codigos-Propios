@@ -22,10 +22,11 @@ def obtener_datos_altitud(altitud, temperatura):
         }
     }
     
-    if temperatura < 0 or temperatura > 40:
+    if not (0 <= temperatura <= 40):
         print("Temperatura fuera de rango (0°C - 40°C).")
         return None
-    elif temperatura < 10:
+
+    if temperatura < 10:
         tabla_temperatura = "0C"
     elif temperatura < 20:
         tabla_temperatura = "10C"
@@ -37,14 +38,14 @@ def obtener_datos_altitud(altitud, temperatura):
         tabla_temperatura = "40C"
 
     tabla_seleccionada = tabla_combinada[tabla_temperatura]
-    for i in range(len(tabla_seleccionada["PRESS_ALT_FT"])):
-        if tabla_seleccionada["PRESS_ALT_FT"][i] == altitud:
-            return {"PRESS ALT FT": altitud,
-                    "TOTAL TO CLEAR 50 FT OBS": tabla_seleccionada["TOTAL_TO_CLEAR_50_FT_OBS"][i]}
+    for i, alt in enumerate(tabla_seleccionada["PRESS_ALT_FT"]):
+        if alt == altitud:
+            return {"PRESS ALT FT": altitud, "TOTAL TO CLEAR 50 FT OBS": tabla_seleccionada["TOTAL_TO_CLEAR_50_FT_OBS"][i]}
+    
     print("No se encontraron datos para la altitud y temperatura seleccionadas.")
     return None
 
-def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
+def obtener_elevacion_aeropuerto(aeropuerto):
     elevaciones_preestablecidas = {
         "mgpb": 32.80,
         "mgsj": 45.93,
@@ -60,67 +61,57 @@ def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_
     }
     aeropuerto_lower = aeropuerto.lower()
     if aeropuerto_lower in elevaciones_preestablecidas:
-        elevacion_pies = elevaciones_preestablecidas[aeropuerto_lower]
+        return elevaciones_preestablecidas[aeropuerto_lower]
     else:
-        elevacion_pies = float(input("Ingresa la altura del aeropuerto (en pies): "))
+        return float(input("Ingresa la altura del aeropuerto (en pies): "))
 
+def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
+    elevacion_pies = obtener_elevacion_aeropuerto(aeropuerto)
+    
     x_porcentaje_contra = viento_contra / 9
     x_porcentaje_cola = viento_cola / 2
     datos_altitud = obtener_datos_altitud(elevacion_pies, temperatura)
-    if datos_altitud:
-        total_to_clear = datos_altitud["TOTAL TO CLEAR 50 FT OBS"]
-        if viento_contra > 0:
-            reduccion_por_viento_contra = (x_porcentaje_contra // 10) * (total_to_clear * 0.10)
-            total_to_clear -= reduccion_por_viento_contra
-        if viento_cola > 0:
-            aumento_por_viento_cola = (x_porcentaje_cola // 2) * (total_to_clear * 0.10)
-            total_to_clear += aumento_por_viento_cola
-        if tipo_pista.lower() == "dry" or tipo_pista.lower() == "grass":
-            aumento_por_pista_pastoseco = total_to_clear * 0.45
-            total_to_clear += aumento_por_pista_pastoseco
-        print("Datos de Altitud:", datos_altitud)
-        print("Distancia necesaria para el despegue (pies):", total_to_clear)
-    else:
+    if not datos_altitud:
         print("No se pudieron calcular los datos para la altitud y temperatura seleccionadas.")
+        return
+    
+    total_to_clear = datos_altitud["TOTAL TO CLEAR 50 FT OBS"]
+    if viento_contra > 0:
+        reduccion_por_viento_contra = (x_porcentaje_contra // 10) * (total_to_clear * 0.10)
+        total_to_clear -= reduccion_por_viento_contra
+    if viento_cola > 0:
+        aumento_por_viento_cola = (x_porcentaje_cola // 2) * (total_to_clear * 0.10)
+        total_to_clear += aumento_por_viento_cola
+    if tipo_pista.lower() in ["dry", "grass"]:
+        aumento_por_pista_pastoseco = total_to_clear * 0.45
+        total_to_clear += aumento_por_pista_pastoseco
+    
+    print("Datos de Altitud:", datos_altitud)
+    print(f"Distancia necesaria para el despegue (pies):", total_to_clear)
 
 def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
-    elevaciones_preestablecidas = {
-        "mgpb": 32.80,
-        "mgsj": 45.93,
-        "mgrd": 65.61,
-        "mgrb": 465.88,
-        "mgza": 633.20,
-        "mgrt": 656.16,
-        "mgpp": 1692.91,
-        "mggt": 5000,
-        "mgqz": 7808.40,
-        "mgsm": 7939.63,
-        "mgqc": 6614.17
-    }
-    aeropuerto_lower = aeropuerto.lower()
-    if aeropuerto_lower in elevaciones_preestablecidas:
-        elevacion_pies = elevaciones_preestablecidas[aeropuerto_lower]
-    else:
-        elevacion_pies = float(input("Ingresa la altura del aeropuerto (en pies): "))
-
+    elevacion_pies = obtener_elevacion_aeropuerto(aeropuerto)
+    
     x_porcentaje_contra = viento_contra / 9
     x_porcentaje_cola = viento_cola / 2
     datos_altitud = obtener_datos_altitud(elevacion_pies, temperatura)
-    if datos_altitud:
-        total_to_clear = datos_altitud["TOTAL TO CLEAR 50 FT OBS"]
-        if viento_contra > 0:
-            reduccion_por_viento_contra = (x_porcentaje_contra // 10) * (total_to_clear * 0.10)
-            total_to_clear -= reduccion_por_viento_contra
-        if viento_cola > 0:
-            aumento_por_viento_cola = (x_porcentaje_cola // 2) * (total_to_clear * 0.10)
-            total_to_clear += aumento_por_viento_cola
-        if tipo_pista.lower() == "dry" or tipo_pista.lower() == "grass":
-            aumento_por_pista_pastoseco = total_to_clear * 0.45
-            total_to_clear += aumento_por_pista_pastoseco
-        print("Datos de Altitud:", datos_altitud)
-        print("Distancia necesaria para el aterrizaje (pies):", total_to_clear)
-    else:
+    if not datos_altitud:
         print("No se pudieron calcular los datos para la altitud y temperatura seleccionadas.")
+        return
+    
+    total_to_clear = datos_altitud["TOTAL TO CLEAR 50 FT OBS"]
+    if viento_contra > 0:
+        reduccion_por_viento_contra = (x_porcentaje_contra // 10) * (total_to_clear * 0.10)
+        total_to_clear -= reduccion_por_viento_contra
+    if viento_cola > 0:
+        aumento_por_viento_cola = (x_porcentaje_cola // 2) * (total_to_clear * 0.10)
+        total_to_clear += aumento_por_viento_cola
+    if tipo_pista.lower() in ["dry", "grass"]:
+        aumento_por_pista_pastoseco = total_to_clear * 0.45
+        total_to_clear += aumento_por_pista_pastoseco
+    
+    print("Datos de Altitud:", datos_altitud)
+    print(f"Distancia necesaria para el aterrizaje (pies):", total_to_clear)
 
 def mostrar_lista_aeropuertos():
     print("\nLista de aeropuertos/aeródromos de salida:")
@@ -170,10 +161,8 @@ def mostrar_lista_aeropuertos():
 
 def main():
     while True:
-        print("Bienvenido al sistema de cálculo de despegues y aterrizajes de un Cessna 172N para vuelos"
-              " internos en Guatemala")
-        eleccion = input("¿Qué cálculo deseas realizar? "
-                         "\n1. Despegue \n2. Aterrizaje \n3. Ambos Cálculos \nElige una opción (1, 2, 3): ")
+        print("Bienvenido al sistema de cálculo de despegues y aterrizajes de un Cessna 172N para vuelos internos en Guatemala")
+        eleccion = input("¿Qué cálculo deseas realizar? \n1. Despegue \n2. Aterrizaje \n3. Ambos Cálculos \nElige una opción (1, 2, 3): ")
 
         if eleccion not in ["1", "2", "3"]:
             print("Por favor, selecciona una opción válida.")
@@ -183,8 +172,7 @@ def main():
             print("\nCálculo de Despegue:")
             mostrar_lista_aeropuertos()
             aeropuerto_salida = input("Por favor, ingresa el indicador del aeropuerto/aeródromo de salida: ").lower()
-            temperatura = float(input("Por favor, ingresa la temperatura del aeropuerto de salida "
-                                      "(en grados Celsius): "))
+            temperatura = float(input("Por favor, ingresa la temperatura del aeropuerto de salida (en grados Celsius): "))
             viento_contra = float(input("¿Tienes viento en contra? (nudos): "))
             viento_cola = float(input("¿Cuántos nudos de viento en cola tienes? "))
             tipo_pista = input("Por favor, ingresa el tipo de pista (dry, grass, normal): ")
@@ -200,8 +188,7 @@ def main():
             print("\nCálculo de Aterrizaje:")
             mostrar_lista_aeropuertos()
             aeropuerto_llegada = input("Por favor, ingresa el indicador del aeropuerto/aeródromo de llegada: ").lower()
-            temperatura = float(input("Por favor, ingresa la temperatura del aeropuerto de llegada "
-                                      "(en grados Celsius): "))
+            temperatura = float(input("Por favor, ingresa la temperatura del aeropuerto de llegada (en grados Celsius): "))
             viento_contra = float(input("¿Tienes viento en contra? (nudos): "))
             viento_cola = float(input("¿Cuántos nudos de viento en cola tienes? "))
             tipo_pista = input("Por favor, ingresa el tipo de pista (dry, grass, normal): ")
