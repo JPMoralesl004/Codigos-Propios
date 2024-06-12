@@ -20,8 +20,12 @@ class Jugador {
     }
 
     public void jugarCarta(int indice) {
-        Carta carta = mano.remove(indice);
-        carta.jugar(this);
+        if (indice >= 0 && indice < mano.size()) {
+            Carta carta = mano.remove(indice);
+            carta.jugar(this);
+        } else {
+            System.out.println("Índice de carta no válido");
+        }
     }
 
     public void infectarOrganos() {
