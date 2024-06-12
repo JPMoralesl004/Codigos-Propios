@@ -27,7 +27,7 @@ public class JuegoVirus {
 
                 System.out.print("Elija una carta para jugar (ingrese el índice): ");
                 int indiceCarta = scanner.nextInt();
-                scanner.nextLine();  // Consumir la nueva línea
+                scanner.nextLine();
                 jugador.jugarCarta(indiceCarta);
             }
         }
