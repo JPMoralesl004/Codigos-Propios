@@ -39,4 +39,8 @@ class Juego {
         }
         return null;
     }
+
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
 }
