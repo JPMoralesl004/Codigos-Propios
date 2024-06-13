@@ -17,18 +17,26 @@ public class JuegoVirus {
         juego.agregarJugador(jugador2);
         juego.iniciarJuego();
 
-        for (int turno = 0; turno < 5; turno++) {
-            for (Jugador jugador : juego.getJugadores()) {
-                System.out.println("\nTurno de " + jugador.getNombre());
-                System.out.println("Mano: ");
-                for (int i = 0; i < jugador.getMano().size(); i++) {
-                    System.out.println(i + ". " + jugador.getMano().get(i).getNombre() + " (" + jugador.getMano().get(i).getTipo() + ")");
-                }
+        boolean juegoTerminado = false;
+        int turno = 0;
 
-                System.out.print("Elija una carta para jugar (ingrese el índice): ");
-                int indiceCarta = scanner.nextInt();
-                scanner.nextLine();
-                jugador.jugarCarta(indiceCarta);
+        while (!juegoTerminado) {
+            Jugador jugadorActual = juego.getJugadores().get(turno % 2);
+            System.out.println("\nTurno de " + jugadorActual.getNombre());
+            System.out.println("Mano: ");
+            for (int i = 0; i < jugadorActual.getMano().size(); i++) {
+                System.out.println(i + ". " + jugadorActual.getMano().get(i).getNombre() + " (" + jugadorActual.getMano().get(i).getTipo() + ")");
+            }
+
+            System.out.print("Elija una carta para jugar (ingrese el índice): ");
+            int indiceCarta = scanner.nextInt();
+            scanner.nextLine();
+            jugadorActual.jugarCarta(indiceCarta);
+
+            turno++;
+
+            if (turno >= 10) {
+                juegoTerminado = true;
             }
         }
 
@@ -38,7 +46,7 @@ public class JuegoVirus {
         } else {
             System.out.println("El juego ha terminado en empate.");
         }
-        
+
         scanner.close();
     }
 }
