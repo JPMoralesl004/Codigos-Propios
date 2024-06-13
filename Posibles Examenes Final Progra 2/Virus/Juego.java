@@ -17,7 +17,12 @@ class Juego {
         System.out.println("El juego ha comenzado.");
         for (Jugador jugador : jugadores) {
             for (int i = 0; i < 5; i++) {
-                jugador.agregarCartaAMano(baraja.robarCarta());
+                Carta carta = baraja.robarCarta();
+                if (carta != null) {
+                    jugador.agregarCartaAMano(carta);
+                } else {
+                    System.out.println("No hay suficientes cartas en la baraja.");
+                }
             }
         }
     }
