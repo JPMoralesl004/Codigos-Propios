@@ -25,7 +25,10 @@ public class JuegoVirus {
             System.out.println("\nTurno de " + jugadorActual.getNombre());
             System.out.println("Mano: ");
             for (int i = 0; i < jugadorActual.getMano().size(); i++) {
-                System.out.println(i + ". " + jugadorActual.getMano().get(i).getNombre() + " (" + jugadorActual.getMano().get(i).getTipo() + ")");
+                Carta carta = jugadorActual.getMano().get(i);
+                if (carta != null) {
+                    System.out.println(i + ". " + carta.getNombre() + " (" + carta.getTipo() + ", " + carta.getColor() + ")");
+                }
             }
 
             System.out.print("Elija una carta para jugar (ingrese el índice): ");
