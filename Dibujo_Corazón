@@ -20,7 +20,6 @@ def escribir_mensaje(turtle, mensaje, color):
     turtle.pendown()
     turtle.write(mensaje, align="center", font=("Times New Roman", 24, "normal"))
 
-
 pantalla = turtle.Screen()
 pantalla.setup(width=600, height=600)
 pantalla.title("Animación de un corazón con Turtle")
