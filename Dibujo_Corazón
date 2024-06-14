@@ -1,0 +1,55 @@
+import turtle
+import time
+
+def dibujar_corazon(turtle, color):
+    turtle.fillcolor(color)
+    turtle.begin_fill()
+    turtle.left(140)
+    turtle.forward(200)
+    turtle.circle(-100, 200)
+    turtle.left(120)
+    turtle.circle(-100, 200)
+    turtle.forward(200)
+    turtle.end_fill()
+
+def escribir_mensaje(turtle, mensaje, color):
+    turtle.penup()
+    turtle.goto(0, -70)
+    turtle.setheading(0)
+    turtle.color(color)
+    turtle.pendown()
+    turtle.write(mensaje, align="center", font=("Times New Roman", 24, "normal"))
+
+
+pantalla = turtle.Screen()
+pantalla.setup(width=600, height=600)
+pantalla.title("Animación de un corazón con Turtle")
+
+corazon = turtle.Turtle()
+corazon.speed(2)
+
+colores_corazon = ['red', 'pink', 'purple', 'blue', 'green', 'yellow', 'orange', 'cyan', 'magenta']
+colores_texto = ['white', 'black', 'yellow', 'white', 'black', 'yellow', 'black', 'blue', 'red']
+angulos = [0, 45, 90, 135, 180, 225, 270, 315]
+
+while True:
+    for color_corazon, color_texto in zip(colores_corazon, colores_texto):
+        for angulo in angulos:
+            corazon.clear()
+            corazon.penup()
+            corazon.setheading(angulo)
+            corazon.goto(0, -200)
+            corazon.pendown()
+
+            dibujar_corazon(corazon, color_corazon)
+
+            corazon.penup()
+            corazon.setheading(angulo)
+            corazon.goto(0, -70)
+            corazon.pendown()
+
+            escribir_mensaje(corazon, "I love you", color_texto)
+
+            time.sleep(0.5)
+
+turtle.done()
