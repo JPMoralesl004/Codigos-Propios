@@ -1,2 +1,2 @@
-public class Cheddar {
+public class Queso {
 }
