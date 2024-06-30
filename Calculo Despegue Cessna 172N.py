@@ -16,7 +16,7 @@ def obtener_datos_altitud(altitud, temperatura):
             "PRESS_ALT_FT": [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000],
             "TOTAL_TO_CLEAR_50_FT_OBS": [1545, 1705, 1885, 2095, 2340, 2635, 2985, 3430, 4000]
         },
-        "40": {
+        "40C": {  # Corregido "40" a "40C"
             "PRESS_ALT_FT": [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000],
             "TOTAL_TO_CLEAR_50_FT_OBS": [1655, 1830, 2030, 2260, 2535, 2860, 3265, 3775, 4465]
         }
@@ -33,7 +33,7 @@ def obtener_datos_altitud(altitud, temperatura):
     elif temperatura < 40:
         tabla_temperatura = "30C"
     else:
-        tabla_temperatura = "40C"
+        tabla_temperatura = "40C"  # Corregido para manejar temperatura igual a 40°C
 
     tabla_seleccionada = tabla_combinada[tabla_temperatura]
     for i in range(len(tabla_seleccionada["PRESS_ALT_FT"])):
@@ -58,9 +58,9 @@ def calcular_performance_distancia(temperatura, viento_contra, viento_cola, tipo
         "MGSM": 7939.63,
         "MGQC": 6614.17
     }
-    aeropuerto_lower = aeropuerto.lower()
-    if aeropuerto_lower in elevaciones_preestablecidas:
-        elevacion_pies = elevaciones_preestablecidas[aeropuerto_lower]
+    aeropuerto_upper = aeropuerto.upper()  # Convertido a mayúsculas para manejar correctamente los códigos de aeropuerto
+    if aeropuerto_upper in elevaciones_preestablecidas:
+        elevacion_pies = elevaciones_preestablecidas[aeropuerto_upper]
         x_porcentaje = viento_contra / 9
         datos_altitud = obtener_datos_altitud(elevacion_pies, temperatura)
         if datos_altitud:
@@ -70,7 +70,7 @@ def calcular_performance_distancia(temperatura, viento_contra, viento_cola, tipo
 
             if viento_cola <= 10:
                 distancia_necesaria_pies *= 1.10
-            if tipo_pista.lower() == "dry" or tipo_pista.lower() == "grass runway":
+            if tipo_pista.lower() in ["dry", "grass runway"]:  # Simplificado el chequeo del tipo de pista
                 distancia_necesaria_pies *= 1.15
 
             print("Datos de Altitud:", datos_altitud)
@@ -88,7 +88,7 @@ def calcular_performance_distancia(temperatura, viento_contra, viento_cola, tipo
 
             if viento_cola <= 10:
                 distancia_necesaria_pies *= 1.10
-            if tipo_pista.lower() == "dry" or tipo_pista.lower() == "grass runway":
+            if tipo_pista.lower() in ["dry", "grass runway"]:  # Simplificado el chequeo del tipo de pista
                 distancia_necesaria_pies *= 1.15
 
             print("Datos de Altitud:", datos_altitud)
@@ -150,7 +150,7 @@ def main():
         print("| XALBAL            | MGXB      |")
         print("| ZACAPA            | MGZA      |\n")
 
-        aeropuerto_salida = input("Por favor, ingresa el indicador del aeropuerto/aeródromo de salida: ").lower()
+        aeropuerto_salida = input("Por favor, ingresa el indicador del aeropuerto/aeródromo de salida: ").upper()  # Convertido a mayúsculas
         temperatura = float(input("Por favor, ingresa la temperatura del aeropuerto de salida (en grados Celsius): "))
         viento_contra = float(input("¿Tienes viento en contra? (nudos): "))
 
