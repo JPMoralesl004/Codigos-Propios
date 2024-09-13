@@ -184,6 +184,5 @@ def main():
             print("¡Gracias por usar el Calculador de Distancia para el Aterrizaje!")
             break
 
-
 if __name__ == "__main__":
     main()
