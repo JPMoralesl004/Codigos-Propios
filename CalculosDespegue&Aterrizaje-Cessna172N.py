@@ -184,7 +184,7 @@ def calcular_performance_despegue(temperatura, viento_contra, viento_cola, tipo_
         aumento_por_pista_pastoseco = total_to_clear * 0.45
         total_to_clear += aumento_por_pista_pastoseco
     
-    print("Datos de Altitud para Despegue:", datos_altitud)
+    print("Datos de Altitud para el Despegue:", datos_altitud)
     print(f"Distancia necesaria para el despegue (pies):", total_to_clear)
 
 def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tipo_pista, aeropuerto):
@@ -209,7 +209,7 @@ def calcular_performance_aterrizaje(temperatura, viento_contra, viento_cola, tip
         aumento_por_pista_pastoseco = total_to_clear * 0.45
         total_to_clear += aumento_por_pista_pastoseco
     
-    print("Datos de Altitud para Aterrizaje:", datos_altitud)
+    print("Datos de Altitud para el Aterrizaje:", datos_altitud)
     print(f"Distancia necesaria para el aterrizaje (pies):", total_to_clear)
 
 if __name__ == "__main__":
