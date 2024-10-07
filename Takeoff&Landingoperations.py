@@ -12,7 +12,7 @@ def main():
             show_airport_list()
             departure_airport = input("Please, enter the departure airport/aerodrom indicator: ").upper()
             try:
-                temperture = float(input("Please, enter the temperature of the departure airport (in Fahrenheit degrees): "))
+                temperture = float(input("Please, enter the temperature of the departure airport (in Celsius degrees): "))
                 headwind = float(input("Do you have headwind? (knots): "))
                 tailwind = float(input("How many knots of tailwind do you have? "))
             except ValueError:
