@@ -2,84 +2,56 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CalculodeDespegueyAterrizaje_Cessna172N {
+public class CalculoDespegue_aterrizaje {
 
-    private static final Map<String, Integer> altitudesAeropuertos = new HashMap<>();
+    static Map<String, Map<String, int[]>> tablaDespegue = new HashMap<>();
+    static Map<String, Map<String, int[]>> tablaAterrizaje = new HashMap<>();
 
     static {
-        altitudesAeropuertos.put("mgpb", 33);
-        altitudesAeropuertos.put("mgsj", 29);
-        altitudesAeropuertos.put("mgba", 1699);
-        altitudesAeropuertos.put("mgcb", 4330);
-        altitudesAeropuertos.put("mgcr", 627);
-        altitudesAeropuertos.put("mgmm", 427);
-        altitudesAeropuertos.put("mgpi", 427);
-        altitudesAeropuertos.put("mgqz", 7710);
-        altitudesAeropuertos.put("mgrt", 656);
-        altitudesAeropuertos.put("mgza", 633);
-        altitudesAeropuertos.put("mggt", 5000);
+        tablaDespegue.put("0C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1250, 1370, 1510, 1670, 1860, 2060, 2310, 2610, 2975}
+        ));
+        tablaDespegue.put("10C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1340, 1475, 1625, 1800, 2000, 2235, 2515, 2850, 3245}
+        ));
+        tablaDespegue.put("20C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1440, 1585, 1750, 1940, 2165, 2425, 2740, 3125, 3610}
+        ));
+        tablaDespegue.put("30C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1545, 1705, 1885, 2095, 2340, 2635, 2985, 3430, 4000}
+        ));
+        tablaDespegue.put("40C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1655, 1830, 2030, 2260, 2535, 2860, 3265, 3775, 4465}
+        ));
+
+        tablaAterrizaje.put("0C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1400, 1550, 1750, 1950, 2150, 2500, 2900, 3400, 4000}
+        ));
+        tablaAterrizaje.put("10C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1500, 1650, 1850, 2050, 2250, 2600, 3000, 3500, 4100}
+        ));
+        tablaAterrizaje.put("20C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1600, 1750, 1950, 2150, 2350, 2700, 3100, 3600, 4200}
+        ));
+        tablaAterrizaje.put("30C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1700, 1850, 2050, 2250, 2450, 2800, 3200, 3700, 4300}
+        ));
+        tablaAterrizaje.put("40C", Map.of(
+                "PRESS_ALT_FT", new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000},
+                "TOTAL_TO_CLEAR_50FT_OBS", new int[]{1800, 1950, 2150, 2350, 2550, 2900, 3300, 3800, 4400}
+        ));
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("Bienvenido al sistema de cálculo de despegues y aterrizajes de un Cessna 172N para vuelos internos en Guatemala");
-            System.out.println("¿Qué cálculo deseas realizar? \n1. Despegue \n2. Aterrizaje \n3. Ambos Cálculos \nElige una opción (1, 2, 3): ");
-            String eleccion = scanner.nextLine();
-
-            if (!eleccion.equals("1") && !eleccion.equals("2") && !eleccion.equals("3")) {
-                System.out.println("Por favor, selecciona una opción válida.");
-                continue;
-            }
-
-            if (eleccion.equals("1") || eleccion.equals("3")) {
-                realizarCalculo(scanner, "Despegue");
-            }
-
-            if (eleccion.equals("2") || eleccion.equals("3")) {
-                realizarCalculo(scanner, "Aterrizaje");
-            }
-
-            System.out.println("¿Deseas realizar otro cálculo? (s/n): ");
-            String continuar = scanner.nextLine();
-            if (!continuar.equalsIgnoreCase("s")) {
-                System.out.println("¡Gracias por usar el sistema de cálculo de despegues y aterrizajes!");
-                break;
-            }
-        }
-        scanner.close();
-    }
-
-    private static void realizarCalculo(Scanner scanner, String tipoCalculo) {
-        System.out.println("\nCálculo de " + tipoCalculo + ":");
-        mostrarListaAeropuertos();
-        System.out.println("Por favor, ingresa el indicador del aeropuerto/aeródromo de " + (tipoCalculo.equals("Despegue") ? "salida" : "llegada") + ": ");
-        String aeropuerto = scanner.nextLine().toLowerCase();
-
-        if (!altitudesAeropuertos.containsKey(aeropuerto)) {
-            System.out.println("Aeropuerto no encontrado.");
-            return;
-        }
-
-        System.out.println("Por favor, ingresa la temperatura del aeropuerto (en grados Celsius): ");
-        double temperatura = scanner.nextDouble();
-        System.out.println("¿Tienes viento en contra? (nudos): ");
-        double vientoContra = scanner.nextDouble();
-        System.out.println("¿Cuántos nudos de viento en cola tienes? ");
-        double vientoCola = scanner.nextDouble();
-        scanner.nextLine();
-        System.out.println("Por favor, ingresa el tipo de pista (dry, grass, normal): ");
-        String tipoPista = scanner.nextLine().toLowerCase();
-
-        if (tipoCalculo.equals("Despegue")) {
-            calcularPerformanceDespegue(temperatura, vientoContra, vientoCola, tipoPista, aeropuerto);
-        } else {
-            calcularPerformanceAterrizaje(temperatura, vientoContra, vientoCola, tipoPista, aeropuerto);
-        }
-    }
-
-    private static void mostrarListaAeropuertos() {
+    public static void mostrarListaAeropuertos() {
         System.out.println("\nLista de aeropuertos/aeródromos de salida:");
         System.out.println("| LUGAR             | INDICADOR |");
         System.out.println("|-------------------|-----------|");
@@ -123,84 +95,84 @@ public class CalculodeDespegueyAterrizaje_Cessna172N {
         System.out.println("| TILAPA            | MGTI      |");
         System.out.println("| USPANTÁN          | MGUS      |");
         System.out.println("| XALBAL            | MGXB      |");
-        System.out.println("| ZACAPA            | MGZA      |\n");
+        System.out.println("| ZACAPA            | MGZA      |");
     }
 
-    private static Map<String, Double> obtenerDatosAltitud(int altitud, double temperatura) {
-        Map<String, double[]> tablaCombinada = new HashMap<>();
-        tablaCombinada.put("0C", new double[]{1205, 1235, 1265, 1300, 1335, 1370, 1415, 1455, 1500});
-        tablaCombinada.put("10C", new double[]{1235, 1265, 1300, 1335, 1370, 1415, 1455, 1495, 1540});
-        tablaCombinada.put("20C", new double[]{1265, 1300, 1335, 1370, 1410, 1450, 1490, 1535, 1580});
-        tablaCombinada.put("30C", new double[]{1295, 1330, 1370, 1405, 1445, 1485, 1535, 1575, 1620});
-        tablaCombinada.put("40C", new double[]{1330, 1365, 1405, 1440, 1480, 1525, 1570, 1615, 1665});
+    public static int calcularDespegue(double peso, int altitud, double temp, String tipoCampo) {
+        Map<String, int[]> tabla = tipoCampo.equals("standard") ? tablaDespegue : tablaDespegue; // No hay tabla para "short_field" en el ejemplo original
 
-        String keyTemperatura;
-        if (temperatura < 0 || temperatura > 40) {
-            System.out.println("Temperatura fuera de rango (0°C - 40°C).");
-            return null;
-        } else if (temperatura < 10) {
-            keyTemperatura = "0C";
-        } else if (temperatura < 20) {
-            keyTemperatura = "10C";
-        } else if (temperatura < 30) {
-            keyTemperatura = "20C";
-        } else {
-            keyTemperatura = "30C";
+        if (altitud < 0 || altitud > 8000) {
+            throw new IllegalArgumentException("Altitud fuera del rango permitido");
         }
 
-        double[] tablaSeleccionada = tablaCombinada.get(keyTemperatura);
-        int[] presAltFt = new int[]{0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000};
-        
-        for (int i = 0; i < presAltFt.length; i++) {
-            if (presAltFt[i] == altitud) {
-                Map<String, Double> resultado = new HashMap<>();
-                resultado.put("distancia", tablaSeleccionada[i]);
-                resultado.put("vref", 65.0 + 5.0 * (altitud / 10000.0));
-                return resultado;
+        String tempKey = temp < 0 ? "0C" : temp < 10 ? "10C" : temp < 20 ? "20C" : temp < 30 ? "30C" : "40C";
+        int altitudIndex = altitud / 1000;
+
+        return tabla.get(tempKey)["TOTAL_TO_CLEAR_50FT_OBS"][altitudIndex] + (int) (peso / 1000) * 10; // Este es un cálculo de ejemplo, ajusta según tu lógica.
+    }
+
+    public static int calcularAterrizaje(double peso, int altitud, double temp) {
+        Map<String, int[]> tabla = tablaAterrizaje;
+
+        if (altitud < 0 || altitud > 8000) {
+            throw new IllegalArgumentException("Altitud fuera del rango permitido");
+        }
+
+        String tempKey = temp < 0 ? "0C" : temp < 10 ? "10C" : temp < 20 ? "20C" : temp < 30 ? "30C" : "40C";
+        int altitudIndex = altitud / 1000;
+
+        return tabla.get(tempKey)["TOTAL_TO_CLEAR_50FT_OBS"][altitudIndex] + (int) (peso / 1000) * 10; // Este es un cálculo de ejemplo, ajusta según tu lógica.
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nBienvenido al calculador de despegue y aterrizaje.");
+            System.out.println("1. Calcular despegue");
+            System.out.println("2. Calcular aterrizaje");
+            System.out.println("3. Salir");
+            System.out.print("Selecciona una opción: ");
+            String opcion = scanner.nextLine();
+
+            if (opcion.equals("1")) {
+                mostrarListaAeropuertos();
+                System.out.print("Selecciona un aeródromo de salida (por ejemplo, MGPB): ");
+                String aerodromo = scanner.nextLine();
+                System.out.print("Ingrese el peso de la aeronave en libras: ");
+                double peso = scanner.nextDouble();
+                System.out.print("Ingrese la altitud en pies (0 a 8000): ");
+                int altitud = scanner.nextInt();
+                System.out.print("Ingrese la temperatura en grados Celsius: ");
+                double temp = scanner.nextDouble();
+                System.out.print("Ingrese el tipo de campo (standard o short_field): ");
+                String tipoCampo = scanner.next();
+                int resultado = calcularDespegue(peso, altitud, temp, tipoCampo);
+                System.out.printf("Total para despegar: %d pies.\n", resultado);
+                scanner.nextLine(); // Limpiar el buffer
+
+            } else if (opcion.equals("2")) {
+                mostrarListaAeropuertos();
+                System.out.print("Selecciona un aeródromo de salida (por ejemplo, MGPB): ");
+                String aerodromo = scanner.nextLine();
+                System.out.print("Ingrese el peso de la aeronave en libras: ");
+                double peso = scanner.nextDouble();
+                System.out.print("Ingrese la altitud en pies (0 a 8000): ");
+                int altitud = scanner.nextInt();
+                System.out.print("Ingrese la temperatura en grados Celsius: ");
+                double temp = scanner.nextDouble();
+                int resultado = calcularAterrizaje(peso, altitud, temp);
+                System.out.printf("Total para aterrizar: %d pies.\n", resultado);
+                scanner.nextLine(); // Limpiar el buffer
+
+            } else if (opcion.equals("3")) {
+                System.out.println("Saliendo...");
+                break;
+
+            } else {
+                System.out.println("Opción no válida. Intenta de nuevo.");
             }
         }
-
-        System.out.println("Altitud fuera de rango (0 - 8000 pies).");
-        return null;
-    }
-
-    private static void calcularPerformanceDespegue(double temperatura, double vientoContra, double vientoCola, String tipoPista, String aeropuerto) {
-        int altitud = altitudesAeropuertos.get(aeropuerto);
-        Map<String, Double> datos = obtenerDatosAltitud(altitud, temperatura);
-        if (datos == null) {
-            return;
-        }
-
-        double distancia = datos.get("distancia");
-        double vref = datos.get("vref");
-
-        if (tipoPista.equals("grass")) {
-            distancia *= 1.2;
-        }
-        distancia -= vientoContra * 5;
-        distancia += vientoCola * 5;
-
-        System.out.println("Distancia de despegue requerida: " + distancia + " pies");
-        System.out.println("Velocidad de referencia Vref: " + vref + " nudos");
-    }
-
-    private static void calcularPerformanceAterrizaje(double temperatura, double vientoContra, double vientoCola, String tipoPista, String aeropuerto) {
-        int altitud = altitudesAeropuertos.get(aeropuerto);
-        Map<String, Double> datos = obtenerDatosAltitud(altitud, temperatura);
-        if (datos == null) {
-            return;
-        }
-
-        double distancia = datos.get("distancia");
-        double vref = datos.get("vref");
-
-        if (tipoPista.equals("grass")) {
-            distancia *= 1.2;
-        }
-        distancia -= vientoContra * 5;
-        distancia += vientoCola * 5;
-
-        System.out.println("Distancia de aterrizaje requerida: " + distancia + " pies");
-        System.out.println("Velocidad de referencia Vref: " + vref + " nudos");
+        scanner.close();
     }
 }
