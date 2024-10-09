@@ -99,6 +99,7 @@ def mostrar_lista_aeropuertos():
     print("| ZACAPA            | MGZA      |\n")
 
 def obtener_datos_altitud(altitud, temperatura):
+    #Tabla de aterrizaje
     tabla_combinada = {
         "0C": {
             "PRESS_ALT_FT": [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000],
