@@ -1,0 +1,39 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class LZWCompression {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la cadena a comprimir: ");
+        String input = scanner.nextLine();
+
+        String compressed = comprime(input);
+        System.out.println("El resultado comprimido es:");
+        System.out.println(compressed);
+
+    }
+
+    public static String comprime(String input) {
+        Map<String, Integer> dictionary = new HashMap<>();
+        for (char c = 'a'; c <= 'z'; c++) {
+            dictionary.put(String.valueOf(c), dictionary.size());
+        }
+
+        StringBuilder output = new StringBuilder();
+        String w = "";
+        for (char c : input.toCharArray()) {
+            String wc = w + c;
+            if (dictionary.containsKey(wc)) {
+                w = wc;
+            } else {
+                output.append("(").append(dictionary.get(w)).append(",").append(c).append(") ");
+                dictionary.put(wc, dictionary.size());
+                w = String.valueOf(c);
+            }
+        }
+        output.append("(").append(dictionary.get(w)).append(")");
+
+        return output.toString();
+    }
+}
