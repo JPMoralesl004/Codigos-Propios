@@ -1,6 +1,5 @@
 import random
 
-
 class Carta:
     class Color:
         ROJO = 'rojo'
@@ -25,7 +24,6 @@ class Carta:
     def __str__(self):
         return f"{self.color} {self.tipo} {self.valor if self.valor is not None else ''}"
 
-
 class Mazo:
     def __init__(self):
         self.cartas = self.crear_mazo()
@@ -46,7 +44,6 @@ class Mazo:
     def robar_carta(self):
         return self.cartas.pop() if self.cartas else None
 
-
 class Jugador:
     def __init__(self, id):
         self.id = id
@@ -62,7 +59,6 @@ class Jugador:
 
     def ha_ganado(self):
         return len(self.mano) == 0
-
 
 class Menu:
     @staticmethod
@@ -81,7 +77,6 @@ class Menu:
             except ValueError:
                 print("Por favor, ingrese un número válido.")
 
-
 def inicializar_juego(numero_jugadores):
     global mazo, pila_descarte, jugadores, jugador_actual, direccion_juego
     mazo = Mazo()
@@ -93,12 +88,10 @@ def inicializar_juego(numero_jugadores):
     jugador_actual = 0
     direccion_juego = True
 
-
 def puede_jugar_carta(carta_elegida, carta_superior):
     return carta_elegida.color == carta_superior.color or \
         carta_elegida.tipo == carta_superior.tipo or \
         carta_elegida.color == Carta.Color.NINGUNO
-
 
 def ejecutar_efecto_carta(carta):
     global direccion_juego
@@ -117,7 +110,6 @@ def ejecutar_efecto_carta(carta):
             for _ in range(4):
                 jugadores[jugador_actual].robar_carta(mazo)
 
-
 def elegir_color(carta):
     colores = {1: Carta.Color.ROJO, 2: Carta.Color.AMARILLO, 3: Carta.Color.VERDE, 4: Carta.Color.AZUL}
     while True:
@@ -131,14 +123,12 @@ def elegir_color(carta):
         except ValueError:
             print("Por favor, ingrese un número válido.")
 
-
 def siguiente_jugador():
     global jugador_actual, direccion_juego
     if direccion_juego:
         jugador_actual = (jugador_actual + 1) % len(jugadores)
     else:
         jugador_actual = (jugador_actual - 1 + len(jugadores)) % len(jugadores)
-
 
 def main():
     Menu.mostrar_menu()
@@ -172,7 +162,6 @@ def main():
         except ValueError:
             print("Por favor, ingrese un número válido.")
         siguiente_jugador()
-
 
 if __name__ == "__main__":
     main()
