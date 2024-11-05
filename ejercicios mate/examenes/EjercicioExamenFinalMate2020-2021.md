@@ -16,4 +16,4 @@ La tasa de reposicion de tarjetas graficas en una conocida tienda online de comp
 a. Calcule cuantas tarjetas graficas han sido vendidas durante las 10 primeras horas.
 b. investigue si con las tasas de reposicion y ventas planteadas se produce rotura de stock tras 18 horas.. Justifique
 
-Clave de calificacion: a. 2,0 pts, b) 1,0 pts, Total: 3,0 pts
+Clave de calificacion: a. 2,0 pts, b. 1,0 pts, Total: 3,0 pts
