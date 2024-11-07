@@ -5,9 +5,7 @@ Aquí tienes el texto con las correcciones ortográficas realizadas:
 # Pregunta 1
 
 El número de ordenadores atacados por un virus informático se puede obtener según la función que se brinda a continuación, con \( t \) en horas:
-\[
-F_{\text{ataque}}(t) = 243t + 10e^{0.46t}
-\]
+*Fataque(t)=243t+10e^0.46t*
 
 **a.** Calcule el número de ordenadores nuevos infectados transcurridas 24 horas.
 
