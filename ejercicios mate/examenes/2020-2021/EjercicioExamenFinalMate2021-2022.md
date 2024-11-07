@@ -2,9 +2,9 @@
 
 # Pregunta 1
 
-El número de ordenadores atacados por un virus informático se puede obtener según la función que se brinda a continuación, con \( t \) en horas:
-
-*Fataque(t)=243t+10e^0.46t*
+El numero de ordenadores atacados por un virus informatico se puede obtener segun la funcion que se brinda a continuacion, con *t* en horas
+    
+*Fataque(t)* = 243t + 10e^0,46t
 
 *a.* Calcule el número de ordenadores nuevos infectados transcurridas 24 horas.
 
