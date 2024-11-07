@@ -5,6 +5,7 @@ Aquí tienes el texto con las correcciones ortográficas realizadas:
 # Pregunta 1
 
 El número de ordenadores atacados por un virus informático se puede obtener según la función que se brinda a continuación, con \( t \) en horas:
+
 *Fataque(t)=243t+10e^0.46t*
 
 **a.** Calcule el número de ordenadores nuevos infectados transcurridas 24 horas.
@@ -17,7 +18,7 @@ El número de ordenadores atacados por un virus informático se puede obtener se
 
 # Pregunta 2
 
-La tasa de reposición de tarjetas gráficas en una conocida tienda en línea de componentes de ordenadores se encuentra definida por la función \( R(t) = 2200e^{0.018t} \), mientras que las ventas de tarjetas gráficas se encuentran definidas por la función \( V(t) = 2200e^{0.024t} \) (con \( t \) en horas). En el instante inicial (\( t = 0 \)), en el almacén existían 2500 tarjetas gráficas en stock.
+La tasa de reposición de tarjetas gráficas en una conocida tienda en línea de componentes de ordenadores se encuentra definida por la función *R(t) = 2200e^0.018t*, mientras que las ventas de tarjetas gráficas se encuentran definidas por la función *V(t) = 2200e^0.024t* (con *t* en horas)  En el instante inicial (*t* = 0), en el almacén existían 2500 tarjetas gráficas en stock.
 
 **a.** Calcule cuántas tarjetas gráficas han sido vendidas durante las primeras 10 horas.
 
