@@ -1,9 +1,6 @@
----
-
 # Pregunta 1
 
-El numero de ordenadores atacados por un virus informatico se puede obtener segun la funcion que se brinda a continuacion, con *t* en horas
-    
+El numero de ordenadores atacados por un virus informatico se puede obtener segun la funcion que se brinda a continuacion, con *t* en horas  
 *Fataque(t)* = 243t + 10e^0,46t
 
 *a.* Calcule el número de ordenadores nuevos infectados transcurridas 24 horas.
@@ -23,5 +20,3 @@ La tasa de reposición de tarjetas gráficas en una conocida tienda en línea de
 *b.* Investigue si, con las tasas de reposición y ventas planteadas, se produce una rotura de stock tras 18 horas. Justifique.
 
 *Clave de calificación: a. 2,0 pts, b. 1,0 pts, Total: 3,0 pts*
-
---- 
