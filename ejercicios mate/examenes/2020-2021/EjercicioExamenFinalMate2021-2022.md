@@ -1,5 +1,3 @@
-Aquí tienes el texto con las correcciones ortográficas realizadas:
-
 ---
 
 # Pregunta 1
