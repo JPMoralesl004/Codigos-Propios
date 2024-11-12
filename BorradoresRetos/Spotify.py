@@ -243,7 +243,7 @@ class SistemaReproduccionMusica:
         for cancion in self.favoritos:
             print(cancion)
 
-       def iniciar(self):
+    def iniciar(self):
         while True:
             print("\nOpciones del sistema de reproducción:")
             print("1. Mostrar playlists")
@@ -259,29 +259,29 @@ class SistemaReproduccionMusica:
 
             seleccion = input("Elige una opción: ")
 
-            if seleccion == '1':
+            if seleccion == "1":
                 self.mostrar_playlists()
-            elif seleccion == '2':
+            elif seleccion == "2":
                 self.ver_cancion_actual()
-            elif seleccion == '3':
+            elif seleccion == "3":
                 self.reproducir_siguiente()
-            elif seleccion == '4':
+            elif seleccion == "4":
                 self.ver_cola_reproduccion()
-            elif seleccion == '5':
+            elif seleccion == "5":
                 self.ver_favoritos()
-            elif seleccion == '6':
+            elif seleccion == "6":
                 self.crear_playlist()
-            elif seleccion == '7':
+            elif seleccion == "7":
                 self.eliminar_playlist()
-            elif seleccion == '8':
+            elif seleccion == "8":
                 self.buscar_cancion()
-            elif seleccion == '9':
+            elif seleccion == "9":
                 self.agregar_cancion_a_playlist()
-            elif seleccion == '10':
-                print("Saliendo del sistema de reproducción de música.")
+            elif seleccion == "10":
+                print("Saliendo del sistema de reproducción...")
                 break
             else:
-                print("Opción no válida, intenta de nuevo.")
+                print("Opción inválida. Por favor, elige una opción válida.")
 
 ejecutar_menu_principal()
 
