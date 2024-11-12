@@ -107,7 +107,6 @@ class NodoPila:
         self.cancion = cancion
         self.siguiente = None
 
-
 class PilaHistorial:
     def __init__(self):
         self.tope = None
@@ -143,6 +142,50 @@ class SistemaReproduccionMusica:
 
     def agregar_playlist(self, playlist):
         self.playlists.append(playlist)
+
+    def crear_playlist(self):
+        nombre = input("Nombre de la nueva playlist: ")
+        artista = input("Artista o descripción: ")
+        nueva_playlist = Playlist(nombre, artista)
+        self.playlists.append(nueva_playlist)
+        print(f"Playlist '{nombre}' creada exitosamente.")
+
+    def eliminar_playlist(self):
+        self.mostrar_playlists()
+        try:
+            indice = int(input("Seleccione el número de la playlist a eliminar: ")) - 1
+            if 0 <= indice < len(self.playlists):
+                nombre = self.playlists[indice].nombre
+                del self.playlists[indice]
+                print(f"Playlist '{nombre}' eliminada.")
+            else:
+                print("Índice de playlist inválido.")
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
+
+    def buscar_cancion(self):
+        titulo = input("Ingrese el título de la canción a buscar: ")
+        for playlist in self.playlists:
+            cancion = playlist.buscar_cancion(titulo)
+            if cancion:
+                print(f"Canción encontrada en '{playlist.nombre}': {cancion}")
+                return cancion
+        print("Canción no encontrada en ninguna playlist.")
+        return None
+
+    def agregar_cancion_a_playlist(self):
+        self.mostrar_playlists()
+        try:
+            indice = int(input("Seleccione el número de la playlist a la que desea añadir una canción: ")) - 1
+            if 0 <= indice < len(self.playlists):
+                titulo = input("Título de la canción: ")
+                duracion = input("Duración de la canción (ej. 3:45): ")
+                self.playlists[indice].agregar_cancion(titulo, duracion)
+                print(f"Canción '{titulo}' añadida a la playlist '{self.playlists[indice].nombre}'.")
+            else:
+                print("Índice de playlist inválido.")
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
 
     def mostrar_playlists(self):
         print("Playlists disponibles:")
@@ -204,160 +247,41 @@ class SistemaReproduccionMusica:
         while True:
             print("\nOpciones del sistema de reproducción:")
             print("1. Mostrar playlists")
-            print("2. Ver canción actual")
-            print("3. Reproducir siguiente canción")
-            print("4. Ver cola de reproducción")
-            print("5. Ver favoritos")
-            print("6. Salir")
+            print("2. Crear nueva playlist")
+            print("3. Eliminar una playlist")
+            print("4. Buscar una canción")
+            print("5. Agregar canción a una playlist")
+            print("6. Ver canción actual")
+            print("7. Reproducir siguiente canción")
+            print("8. Ver cola de reproducción")
+            print("9. Ver favoritos")
+            print("10. Salir")
+
             seleccion = input("Elige una opción: ")
 
             if seleccion == '1':
                 self.mostrar_playlists()
-                try:
-                    indice = int(input("Selecciona el número de la playlist para reproducir: ")) - 1
-                    self.reproducir_playlist(indice)
-                except ValueError:
-                    print("Por favor, ingresa un número válido.")
-                    
             elif seleccion == '2':
-                self.ver_cancion_actual()
+                self.crear_playlist()
             elif seleccion == '3':
-                self.reproducir_siguiente()
+                self.eliminar_playlist()
             elif seleccion == '4':
-                self.ver_cola_reproduccion()
+                self.buscar_cancion()
             elif seleccion == '5':
+                self.agregar_cancion_a_playlist()
+            elif seleccion == '6':
+                self.ver_cancion_actual()
+            elif seleccion == '7':
+                self.reproducir_siguiente()
+            elif seleccion == '8':
+                self.ver_cola_reproduccion()
+            elif seleccion == '9':
                 self.ver_favoritos()
-            elif seleccion.lower() == 'q':
+            elif seleccion == '10':
                 print("Saliendo del sistema de reproducción de música.")
                 break
             else:
                 print("Opción no válida, intenta de nuevo.")
-
-def mostrar_menu_principal():
-    print("\n=== MENÚ PRINCIPAL ===")
-    print("1. Reproducción")
-    print("2. Biblioteca")
-    print("3. Salir")
-    return int(input("Seleccione una opción: "))
-
-def mostrar_menu_reproduccion():
-    print("\n=== MENÚ REPRODUCCIÓN ===")
-    print("1. Ver canción actual")
-    print("2. Reproducir siguiente")
-    print("3. Reproducir anterior")
-    print("4. Ver cola de reproducción")
-    print("5. Ver historial de reproducción")
-    print("6. Activar/desactivar aleatorio")
-    print("7. Activar/desactivar repetición")
-    print("8. Volver al menú principal")
-    return int(input("Seleccione una opción: "))
-
-def mostrar_menu_biblioteca():
-    print("\n=== MENÚ BIBLIOTECA ===")
-    print("1. Añadir canción a favoritos")
-    print("2. Eliminar canción de favoritos")
-    print("3. Ver canciones favoritas")
-    print("4. Crear nueva playlist")
-    print("5. Añadir canción a playlist")
-    print("6. Eliminar canción de playlist")
-    print("7. Ver playlists")
-    print("8. Ver canciones de una playlist")
-    print("9. Volver al menú principal")
-    return int(input("Seleccione una opción: "))
-
-def ejecutar_menu_principal():
-    while True:
-        opcion = mostrar_menu_principal()
-        
-        if opcion == 1:
-            ejecutar_menu_reproduccion()
-        elif opcion == 2:
-            ejecutar_menu_biblioteca()
-        elif opcion == 3:
-            print("Saliendo del sistema...")
-            break
-        else:
-            print("Opción no válida. Intente nuevamente.")
-
-def ejecutar_menu_reproduccion():
-    while True:
-        opcion = mostrar_menu_reproduccion()
-        
-        if opcion == 1:
-            if player.cancion_actual:
-                print(f"▶ Reproduciendo: {player.cancion_actual}")
-            else:
-                iniciar_reproduccion()
-        
-        elif opcion == 2:
-            player.siguiente_cancion()
-            print(f"▶ Reproduciendo siguiente: {player.cancion_actual}")
-        
-        elif opcion == 3:
-            player.cancion_anterior()
-            print(f"▶ Reproduciendo anterior: {player.cancion_actual}")
-        
-        elif opcion == 4:
-            print("COLA DE REPRODUCCIÓN:")
-            player.mostrar_cola()
-        
-        elif opcion == 5:
-            print("HISTORIAL DE REPRODUCCIÓN:")
-            player.mostrar_historial()
-        
-        elif opcion == 6:
-            player.toggle_shuffle()
-            estado = "ON" if player.shuffle else "OFF"
-            print(f"Modo aleatorio: {estado}")
-        
-        elif opcion == 7:
-            player.toggle_repeat()
-            estado = "ON" if player.repeat else "OFF"
-            print(f"Modo repetición: {estado}")
-        
-        elif opcion == 8:
-            break
-        else:
-            print("Opción no válida. Intente nuevamente.")
-
-def iniciar_reproduccion():
-    respuesta = input("No hay canción en reproducción. ¿Desea comenzar a reproducir? (S/N): ")
-    if respuesta.upper() == 'S':
-        player.iniciar_reproduccion()
-
-def ejecutar_menu_biblioteca():
-    while True:
-        opcion = mostrar_menu_biblioteca()
-        
-        if opcion == 1:
-            player.agregar_favorito()
-        
-        elif opcion == 2:
-            player.eliminar_favorito()
-        
-        elif opcion == 3:
-            player.mostrar_favoritos()
-        
-        elif opcion == 4:
-            nombre = input("Nombre de la nueva playlist: ")
-            biblioteca.crear_playlist(nombre)
-        
-        elif opcion == 5:
-            biblioteca.agregar_cancion_a_playlist()
-        
-        elif opcion == 6:
-            biblioteca.eliminar_cancion_de_playlist()
-        
-        elif opcion == 7:
-            biblioteca.mostrar_playlists()
-        
-        elif opcion == 8:
-            biblioteca.ver_canciones_playlist()
-        
-        elif opcion == 9:
-            break
-        else:
-            print("Opción no válida. Intente nuevamente.")
 
 ejecutar_menu_principal()
 
