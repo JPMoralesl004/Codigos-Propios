@@ -283,7 +283,7 @@ class SistemaReproduccionMusica:
             else:
                 print("Opción inválida. Por favor, elige una opción válida.")
 
-ejecutar_menu_principal()
+sistema = SistemaReproduccionMusica()
 
 playlist_predeterminada = Playlist("Predeterminada", "Varios")
 playlist_predeterminada.duracion_total = "1 hora, 35 minutos"
@@ -314,5 +314,4 @@ playlist_predeterminada.agregar_cancion("Born In The U.S.A - Bruce Springsteen",
 playlist_predeterminada.agregar_cancion("Eye Of The Tiger - Survivor", "4:04")
 playlist_predeterminada.agregar_cancion("Thank You For The Music - ABBA", "3:49")
 
-sistema = SistemaReproduccionMusica()
-sistema.agregar_playlist(playlist_predeterminada)
+sistema.iniciar()
