@@ -243,18 +243,18 @@ class SistemaReproduccionMusica:
         for cancion in self.favoritos:
             print(cancion)
 
-    def iniciar(self):
+       def iniciar(self):
         while True:
             print("\nOpciones del sistema de reproducción:")
             print("1. Mostrar playlists")
-            print("2. Crear nueva playlist")
-            print("3. Eliminar una playlist")
-            print("4. Buscar una canción")
-            print("5. Agregar canción a una playlist")
-            print("6. Ver canción actual")
-            print("7. Reproducir siguiente canción")
-            print("8. Ver cola de reproducción")
-            print("9. Ver favoritos")
+            print("2. Ver canción actual")
+            print("3. Reproducir siguiente canción")
+            print("4. Ver cola de reproducción")
+            print("5. Ver favoritos")
+            print("6. Crear nueva playlist")
+            print("7. Eliminar una playlist")
+            print("8. Buscar una canción")
+            print("9. Agregar canción a una playlist")
             print("10. Salir")
 
             seleccion = input("Elige una opción: ")
@@ -262,21 +262,21 @@ class SistemaReproduccionMusica:
             if seleccion == '1':
                 self.mostrar_playlists()
             elif seleccion == '2':
-                self.crear_playlist()
-            elif seleccion == '3':
-                self.eliminar_playlist()
-            elif seleccion == '4':
-                self.buscar_cancion()
-            elif seleccion == '5':
-                self.agregar_cancion_a_playlist()
-            elif seleccion == '6':
                 self.ver_cancion_actual()
-            elif seleccion == '7':
+            elif seleccion == '3':
                 self.reproducir_siguiente()
-            elif seleccion == '8':
+            elif seleccion == '4':
                 self.ver_cola_reproduccion()
-            elif seleccion == '9':
+            elif seleccion == '5':
                 self.ver_favoritos()
+            elif seleccion == '6':
+                self.crear_playlist()
+            elif seleccion == '7':
+                self.eliminar_playlist()
+            elif seleccion == '8':
+                self.buscar_cancion()
+            elif seleccion == '9':
+                self.agregar_cancion_a_playlist()
             elif seleccion == '10':
                 print("Saliendo del sistema de reproducción de música.")
                 break
