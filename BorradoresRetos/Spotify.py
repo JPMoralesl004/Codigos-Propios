@@ -6,7 +6,6 @@ class Cancion:
     def __str__(self):
         return f"{self.titulo} ({self.duracion})"
 
-
 class Playlist:
     def __init__(self, nombre, artista):
         self.nombre = nombre
@@ -29,7 +28,6 @@ class Playlist:
 
     def __str__(self):
         return f"{self.nombre} ({len(self.canciones)} canciones)"
-
 
 class SistemaReproduccionMusica:
     def __init__(self):
