@@ -5,4 +5,4 @@ numeros 88008 y 58303:
 a) plantee el sistema de ecuaciones que modela este problema
 b) Resuelva el sistema de ecuaciones aplicando alguno de los metodos de resolucion estudiados en clase y compruebe los resultados
 
-##Clave de calificacion: a) 1,0 ptos, b) 2,0 ptos. Total: 3,0 ptos
+## Clave de calificacion: a) 1,0 ptos, b) 2,0 ptos. Total: 3,0 ptos
