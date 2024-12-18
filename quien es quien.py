@@ -1,6 +1,5 @@
 import random
 
-
 class Personaje:
     def __init__(self, nombre, caracteristicas):
         self.nombre = nombre
